@@ -9,5 +9,5 @@ fn write_in_file () -> io::Result<()> {
     Ok(())
 }
 
-fn trasnlate () {}
+fn trasnlate () -> Box<Vec<char>>{}
 
