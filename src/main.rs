@@ -15,11 +15,11 @@ fn main() {
         let nt_word = nt_word;
         let mut nt_word_in_char: Box<Vec<char>> = Box::new(nt_word.chars().collect::<Vec<char>>());
         let t_word_in_char: Box<Vec<char>> = translate(nt_word_in_char);
-        let _result: io::Result<()> = write_in_file(t_word_in_char);
+        //let _result: io::Result<()> = write_in_file(t_word_in_char);
     }
 }
 
-
+/*
 fn write_in_file ( t_word: Box<Vec<char>> ) -> io::Result<()> {
     let mut file_ptr = OpenOptions::new()
                 .append(true)
@@ -32,7 +32,7 @@ fn write_in_file ( t_word: Box<Vec<char>> ) -> io::Result<()> {
     }
     file_ptr.write_all(byte_string.as_bytes())?;
     Ok(())
-}
+}*/
 
 fn translate ( nt_word: Box<Vec<char>> ) -> Box<Vec<char>>{
     let unboxed_word: Vec<char> = *nt_word;
