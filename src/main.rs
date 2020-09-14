@@ -10,12 +10,7 @@ fn main() {
     io::stdin()
         .read_line(&mut nt_word)
         .expect("Failed to read line");
-    {
-        let nt_word = nt_word;
-        let nt_word_in_char: Box<Vec<char>> = Box::new(nt_word.chars().collect::<Vec<char>>());
-        let t_word: String = translate(nt_word_in_char);
-        let _result: io::Result<()> = write_in_file(t_word);
-    }
+    translate(nt_word);
 }
 
 fn write_in_file ( mut t_word: String ) -> io::Result<()> {
@@ -26,12 +21,19 @@ fn write_in_file ( mut t_word: String ) -> io::Result<()> {
                 .create(true)
                 .open("../../dictionary.txt")?;
     t_word.push('\n');
-    let deu_certo: usize = file_ptr.write(t_word.as_bytes())?;
-    println!("{:?}", deu_certo);
+    file_ptr.write_all(t_word.as_bytes())?; 
     Ok(())
 }
 
-fn translate ( nt_word: Box<Vec<char>> ) -> String{
+fn translate ( nt_word: String ){
+    let nt_word = nt_word;
+    let nt_word_in_char: Box<Vec<char>> = Box::new(nt_word.chars().collect::<Vec<char>>());
+    let t_word: String = transform_word(nt_word_in_char);
+    println!("{:?}", t_word);
+    let _result: io::Result<()> = write_in_file(t_word);
+}
+
+fn transform_word( nt_word: Box<Vec<char>> ) -> String{
     let unboxed_word: Vec<char> = *nt_word;
     let mut t_word: String = String::from("");
     {
