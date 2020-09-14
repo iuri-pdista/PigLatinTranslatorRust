@@ -10,7 +10,6 @@ fn main() {
     io::stdin()
         .read_line(&mut nt_word)
         .expect("Failed to read line");
-    println!("{:?}", nt_word);
     {
         let nt_word = nt_word;
         let mut _nt_word_in_char: Box<Vec<char>> = Box::new(nt_word.chars().collect::<Vec<char>>());
@@ -57,8 +56,6 @@ fn translate ( nt_word: Box<Vec<char>> ) -> String{
                 }
             }
         }
-        // t_word = Box::new(t_word_in_vec);
-        println!("{:#?}", &t_word);
     }
     t_word
 }
