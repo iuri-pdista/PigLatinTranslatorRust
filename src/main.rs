@@ -37,25 +37,36 @@ fn translate ( nt_word: Box<Vec<char>> ) -> String{
     let unboxed_word: Vec<char> = *nt_word;
     let mut t_word: String = String::from("");
     {
-        let mut count = 0;
         let first_letter = unboxed_word[0];
-        t_word.push( first_letter );
-        t_word.push('a');
-        t_word.push('y');
-        for letter in unboxed_word.iter(){
-            if *letter == first_letter{
-                continue;
-            }            
+        t_word = push_suffix(t_word, first_letter);
+        t_word = insert_word(unboxed_word, t_word)
+    }
+    t_word
+}
+
+fn insert_word( char_vec: Vec<char>, mut word: String ) -> String{
+    let first_letter = char_vec[0];
+    let mut count = 0;
+    for letter in char_vec.iter(){
+        if *letter == first_letter{
+            continue;
+        }            
+        else{
+            if (*letter).is_alphabetic() {
+                word.insert( count, *letter);
+                count += 1;
+            }
             else{
-                if (*letter).is_alphabetic() {
-                    t_word.insert( count, *letter);
-                    count += 1;
-                }
-                else{
-                    count += 1;
-                }
+                count += 1;
             }
         }
     }
-    t_word
+    word
+}
+
+fn push_suffix ( mut word: String, first_letter: char ) -> String{
+    word.push( first_letter );
+    word.push('a');
+    word.push('y');
+    word
 }
