@@ -19,6 +19,21 @@ fn main() {
     }
 }
 
+
+fn write_in_file ( t_word: Box<Vec<char>> ) -> io::Result<()> {
+    let mut file_ptr = OpenOptions::new()
+                .append(true)
+                .read(true)
+                .create(true)
+                .open("../../dictionary.txt")?;
+    let mut byte_string: String = String::from("");
+    for letter in *t_word{
+        byte_string.push(letter);
+    }
+    file_ptr.write_all(byte_string.as_bytes())?;
+    Ok(())
+}
+
 fn translate ( nt_word: Box<Vec<char>> ) -> Box<Vec<char>>{
     let unboxed_word: Vec<char> = *nt_word;
     let mut t_word: Box<Vec<char>> = Box::new(Vec::new());
