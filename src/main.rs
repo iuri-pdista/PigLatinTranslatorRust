@@ -18,3 +18,28 @@ fn main() {
         let _result: io::Result<()> = write_in_file(t_word_in_char);
     }
 }
+
+fn translate ( nt_word: Box<Vec<char>> ) -> Box<Vec<char>>{
+    let unboxed_word: Vec<char> = *nt_word;
+    let mut t_word: Box<Vec<char>> = Box::new(Vec::new());
+    let mut t_word_in_vec: Vec<char> = Vec::with_capacity( unboxed_word.len()+ 1 );
+    {
+        let mut count = 0;
+        let first_letter = unboxed_word[0];
+        t_word_in_vec.push( first_letter );
+        t_word_in_vec.push('a');
+        t_word_in_vec.push('y');
+        for letter in unboxed_word.iter(){
+            if *letter == first_letter{
+                continue;
+            }            
+            else{
+                t_word_in_vec.insert( count, *letter);
+                count += 1;
+            }
+        }
+        // t_word = Box::new(t_word_in_vec);
+        println!("{:#?}", &t_word_in_vec);
+    }
+    t_word
+}
