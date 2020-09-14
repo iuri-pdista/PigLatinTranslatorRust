@@ -13,8 +13,8 @@ fn main() {
     println!("{:?}", nt_word);
     {
         let nt_word = nt_word;
-        let mut nt_word_in_char: Box<Vec<char>> = Box::new(nt_word.chars().collect::<Vec<char>>());
-        let t_word_in_char: Box<Vec<char>> = translate(nt_word_in_char);
+        let mut _nt_word_in_char: Box<Vec<char>> = Box::new(nt_word.chars().collect::<Vec<char>>());
+        let _t_word_in_char: String = translate(_nt_word_in_char);
         //let _result: io::Result<()> = write_in_file(t_word_in_char);
     }
 }
@@ -34,27 +34,31 @@ fn write_in_file ( t_word: Box<Vec<char>> ) -> io::Result<()> {
     Ok(())
 }*/
 
-fn translate ( nt_word: Box<Vec<char>> ) -> Box<Vec<char>>{
+fn translate ( nt_word: Box<Vec<char>> ) -> String{
     let unboxed_word: Vec<char> = *nt_word;
-    let mut t_word: Box<Vec<char>> = Box::new(Vec::new());
-    let mut t_word_in_vec: Vec<char> = Vec::with_capacity( unboxed_word.len()+ 1 );
+    let mut t_word: String = String::from("");
     {
         let mut count = 0;
         let first_letter = unboxed_word[0];
-        t_word_in_vec.push( first_letter );
-        t_word_in_vec.push('a');
-        t_word_in_vec.push('y');
+        t_word.push( first_letter );
+        t_word.push('a');
+        t_word.push('y');
         for letter in unboxed_word.iter(){
             if *letter == first_letter{
                 continue;
             }            
             else{
-                t_word_in_vec.insert( count, *letter);
-                count += 1;
+                if (*letter).is_alphabetic() {
+                    t_word.insert( count, *letter);
+                    count += 1;
+                }
+                else{
+                    count += 1;
+                }
             }
         }
         // t_word = Box::new(t_word_in_vec);
-        println!("{:#?}", &t_word_in_vec);
+        println!("{:#?}", &t_word);
     }
     t_word
 }
