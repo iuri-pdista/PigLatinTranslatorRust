@@ -1,4 +1,4 @@
-use std::fs::File;
+// use std::fs::File;
 use std::io::prelude::*;
 use std::fs::OpenOptions;
 use std::string::String;
@@ -12,26 +12,24 @@ fn main() {
         .expect("Failed to read line");
     {
         let nt_word = nt_word;
-        let mut _nt_word_in_char: Box<Vec<char>> = Box::new(nt_word.chars().collect::<Vec<char>>());
-        let _t_word_in_char: String = translate(_nt_word_in_char);
-        //let _result: io::Result<()> = write_in_file(t_word_in_char);
+        let nt_word_in_char: Box<Vec<char>> = Box::new(nt_word.chars().collect::<Vec<char>>());
+        let t_word: String = translate(nt_word_in_char);
+        let _result: io::Result<()> = write_in_file(t_word);
     }
 }
 
-/*
-fn write_in_file ( t_word: Box<Vec<char>> ) -> io::Result<()> {
+fn write_in_file ( mut t_word: String ) -> io::Result<()> {
+    println!("{:?}", t_word);
     let mut file_ptr = OpenOptions::new()
                 .append(true)
                 .read(true)
                 .create(true)
                 .open("../../dictionary.txt")?;
-    let mut byte_string: String = String::from("");
-    for letter in *t_word{
-        byte_string.push(letter);
-    }
-    file_ptr.write_all(byte_string.as_bytes())?;
+    t_word.push('\n');
+    let deu_certo: usize = file_ptr.write(t_word.as_bytes())?;
+    println!("{:?}", deu_certo);
     Ok(())
-}*/
+}
 
 fn translate ( nt_word: Box<Vec<char>> ) -> String{
     let unboxed_word: Vec<char> = *nt_word;
