@@ -12,21 +12,30 @@ fn main() {
     translate(nt_word);
 }
 
-fn write_in_file ( mut t_word: String ) -> io::Result<()> {
+fn write_in_file ( mut t_word: String, nt_string: String ) -> io::Result<()> {
     let mut file_ptr = OpenOptions::new()
                 .append(true)
                 .read(true)
                 .create(true)
                 .open("../../dictionary.txt")?;
-    t_word.push('\n');
+    t_word = prepares_dictionary_entry( nt_string, t_word );
     file_ptr.write_all(t_word.as_bytes())?; 
     Ok(())
+}
+
+fn prepares_dictionary_entry ( mut nt_string: String, t_word: String) -> String {
+    println!("{:?}", nt_string);
+    nt_string += " = ";
+    nt_string += &t_word;
+    nt_string.push('\n');
+    println!("{:?}", nt_string);
+    nt_string
 }
 
 fn translate ( nt_word: String ){
     let nt_word_in_char: Box<Vec<char>> = Box::new(nt_word.chars().collect::<Vec<char>>());
     let t_word: String = transform_word(nt_word_in_char);
-    let _result: io::Result<()> = write_in_file(t_word);
+    let _result: io::Result<()> = write_in_file(t_word, nt_word);
 }
 
 fn transform_word( nt_word: Box<Vec<char>> ) -> String{
