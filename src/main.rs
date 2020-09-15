@@ -90,3 +90,11 @@ fn remove_line_skip_char ( word: String ) -> String{
     }
     // need to parse to String clean_word_as_vec
 }
+
+fn parse_char_vec_to_string( word_as_vec: Vec<char> ) -> String{
+    let mut boxed_string: String = String::from("");
+    for letter in word_as_vec{
+        boxed_string.push(letter);
+    }
+    boxed_string
+}
