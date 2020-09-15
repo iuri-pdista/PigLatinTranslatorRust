@@ -88,7 +88,7 @@ fn remove_line_skip_char ( word: String ) -> String{
             continue;
         }
     }
-    // need to parse to String clean_word_as_vec
+    parse_char_vec_to_string( clean_word_as_vec )
 }
 
 fn parse_char_vec_to_string( word_as_vec: Vec<char> ) -> String{
