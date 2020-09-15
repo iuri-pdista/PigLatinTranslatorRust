@@ -24,6 +24,7 @@ fn write_in_file ( mut t_word: String, nt_string: String ) -> io::Result<()> {
 }
 
 fn prepares_dictionary_entry ( mut nt_string: String, t_word: String) -> String {
+    nt_string = remove_line_skip_char(nt_string);
     nt_string += " = ";
     nt_string += &t_word;
     nt_string.push('\n');
@@ -88,10 +89,10 @@ fn remove_line_skip_char ( word: String ) -> String{
             continue;
         }
     }
-    parse_char_vec_to_string( clean_word_as_vec )
+    _parse_char_vec_to_string( clean_word_as_vec )
 }
 
-fn parse_char_vec_to_string( word_as_vec: Vec<char> ) -> String{
+fn _parse_char_vec_to_string( word_as_vec: Vec<char> ) -> String{
     let mut boxed_string: String = String::from("");
     for letter in word_as_vec{
         boxed_string.push(letter);
