@@ -24,7 +24,6 @@ fn write_in_file ( mut t_word: String, nt_string: String ) -> io::Result<()> {
 }
 
 fn prepares_dictionary_entry ( mut nt_string: String, t_word: String) -> String {
-    println!("{:?}", nt_string);
     nt_string += " = ";
     nt_string += &t_word;
     nt_string.push('\n');
@@ -76,4 +75,18 @@ fn push_suffix ( mut word: String, first_letter: char ) -> String{
     word.push('a');
     word.push('y');
     word
+}
+
+fn remove_line_skip_char ( word: String ) -> String{
+    let unclean_word_as_vec = word.chars().collect::<Vec<char>>();
+    let mut clean_word_as_vec = Vec::with_capacity( unclean_word_as_vec.len());
+    for letter in unclean_word_as_vec {
+        if letter.is_alphabetic() {
+            clean_word_as_vec.push( letter );
+        }
+        else{
+            continue;
+        }
+    }
+    // need to parse to String clean_word_as_vec
 }
