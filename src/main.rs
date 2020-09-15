@@ -1,4 +1,3 @@
-// use std::fs::File;
 use std::io::prelude::*;
 use std::fs::OpenOptions;
 use std::string::String;
@@ -14,7 +13,6 @@ fn main() {
 }
 
 fn write_in_file ( mut t_word: String ) -> io::Result<()> {
-    println!("{:?}", t_word);
     let mut file_ptr = OpenOptions::new()
                 .append(true)
                 .read(true)
@@ -26,16 +24,15 @@ fn write_in_file ( mut t_word: String ) -> io::Result<()> {
 }
 
 fn translate ( nt_word: String ){
-    let nt_word = nt_word;
     let nt_word_in_char: Box<Vec<char>> = Box::new(nt_word.chars().collect::<Vec<char>>());
     let t_word: String = transform_word(nt_word_in_char);
-    println!("{:?}", t_word);
     let _result: io::Result<()> = write_in_file(t_word);
 }
 
 fn transform_word( nt_word: Box<Vec<char>> ) -> String{
     let unboxed_word: Vec<char> = *nt_word;
     let mut t_word: String = String::from("");
+    // Shrink the lifetime of these manipulation variables
     {
         let first_letter = unboxed_word[0];
         t_word = push_suffix(t_word, first_letter);
@@ -47,6 +44,7 @@ fn transform_word( nt_word: Box<Vec<char>> ) -> String{
 fn insert_word( char_vec: Vec<char>, mut word: String ) -> String{
     let first_letter = char_vec[0];
     let mut count = 0;
+    // inserts the letters in the translated order, into the the string
     for letter in char_vec.iter(){
         if *letter == first_letter{
             continue;
